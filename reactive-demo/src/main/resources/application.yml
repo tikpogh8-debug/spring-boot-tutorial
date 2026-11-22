@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: reactive-demo
+  r2dbc:
+    # In-memory H2 for zero setup. To use PostgreSQL instead, add io.r2dbc:r2dbc-postgresql
+    # and set e.g. r2dbc:postgresql://localhost:5432/sports with username/password.
+    url: r2dbc:h2:mem:///sportsdb;DB_CLOSE_DELAY=-1
+
+rakuten:
+  # Get a free key at https://webservice.rakuten.co.jp/ and export RAKUTEN_APP_ID.
+  # Without a key the ETL is skipped and the API still works.
+  base-url: https://app.rakuten.co.jp
+  path: /services/api/IchibaItem/Search/20220601
+  application-id: ${RAKUTEN_APP_ID:}
+  keyword: sports
+  hits: 30
+  max-pages: 5
+
+etl:
+  enabled: true
+  batch-size: 20
+
+logging:
+  level:
+    com.tutorial.reactive: INFO
